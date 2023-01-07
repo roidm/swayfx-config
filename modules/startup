@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+# Terminate already running bar instances
+_ps=(mako eww waybar dunst polkit-gnome network-traffic.sh wbg aslstatus pipewire weather-timer)
+for _prs in "${_ps[@]}"; do
+         if [[ `pidof ${_prs}` ]]; then
+                 killall -9 ${_prs}
+         fi
+done
+#gentoo-pipewire-launcher &
+while pgrep -x waybar >/dev/null; do sleep 1; done
+~/.azotebg &
+mako &
+polkit-gnome &
+waybar -c $HOME/.config/sway/waybar/config.json -s $HOME/.config/sway/waybar/style.css
+sleep 2 && pamixer --set-volume 70
+sleep 5 && xrdb -merge ~/.Xresources
