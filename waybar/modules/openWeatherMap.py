@@ -5,7 +5,7 @@ import io
 import os
 
 try:
-    configPath = os.environ['HOME'] + "/.config/hypr/waybar/modules/owm_config.json"
+    configPath = os.environ['HOME'] + "/.config/sway/waybar/modules/owm_config.json"
     # Uses the template file and renames it to the correct name
     if not os.path.exists(configPath):
         os.system("cp " + configPath+".template " + configPath)
