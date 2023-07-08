@@ -7,7 +7,7 @@
   "margin-bottom": -6,
   "height": 36,
   "modules-left": ["custom/gentoo","custom/dot","sway/workspaces","custom/dot2","cpu","custom/gputmp","custom/dot4","disk","custom/memory","custom/dot4","sway/window"],
-  "modules-center": ["clock",],
+  "modules-center": ["clock"],
   "modules-right": ["sway/mode","custom/dot4","custom/dot4","custom/network","custom/uptime","temperature","custom/weather","custom/kernel","pulseaudio","tray","custom/dot3","custom/power"],
   "keyboard-state": {
       "numlock": true,
