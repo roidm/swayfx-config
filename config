@@ -11,20 +11,23 @@ set $right l
 set $mod Mod4
 set $mod1 Mod1
 set $mod2 Control
+set $exit nwg-bar -p center -a middle -i 48 -s preset-0.css
 
 #seat * hide_cursor 8000
 seat seat0 xcursor_theme Adwaita
 
-corner_radius 10 
+corner_radius 6 
 shadows on
 shadows_on_csd on
 shadow_color #000000AF
 shadow_blur_radius 20
 
-blur off
-blur_xray off
+blur on
+blur_xray on
 blur_passes 2
 blur_radius 5
+blur_contrast 1
+blur_saturation 1
 
 #layer_effects "waybar" {
 #  blur disable;
@@ -38,16 +41,17 @@ blur_radius 5
 #    blur enable;
 #}
 
+
 title_align center
 titlebar_border_thickness 1
 titlebar_separator disable
 
 # Main monitor
-#output DP-3 mode 3840x2160@60Hz position 0 0 scale 1.5 subpixel rgb
-#output HDMI-A-1 mode 3840x2160@60Hz position 0 0 scale 1.5 subpixel rgb
-#output DP-2 mode 2560x1440@144Hz position 3070 0 scale 1 subpixel rgb
-#output DP-2 mode 2560x1440@144Hz position 2560 0 scale 1 subpixel rgb
 output DP-2 mode 2560x1440@119.871Hz position 0 0 scale 1 subpixel rgb
+output DP-3 mode 1920x1080@100Hz position 2560 0 subpixel rgb
+
+
+# keyb. & mouse input 
 input type:keyboard {
   xkb_layout es
   xkb_options caps:ctrl_modifier
@@ -66,7 +70,7 @@ default_floating_border pixel 3
 #hide_edge_borders smart
 
 #font
-font pango:xft:JetBrainsMono Nerd Font 18
+font pango:xft:JetBrainsMono Nerd Font 12
 
 # gaps
 gaps inner 10
@@ -83,13 +87,14 @@ bindsym $mod1+Return exec foot
 bindsym $mod++q kill
 
 # launchers
+bindsym $mod1+n exec swaync-client -t
 bindsym $mod2+space exec wofi --show 'drun,run'
-bindsym $mod+x exec wofipowermenu.py
+bindsym $mod+x exec $exit
 bindsym $mod+e exec wofi-emoji
 bindsym $mod+d exec  wofi --show 'drun,run'
-bindsym $mod1+1 exec  "echo 0 | pkexec tee /sys/module/hid_apple/parameters/fnmode"
-bindsym $mod1+2 exec  "echo 1 | pkexec tee /sys/module/hid_apple/parameters/fnmode"
-bindsym $mod1+3 exec  "echo 2 | pkexec tee /sys/module/hid_apple/parameters/fnmode"
+#bindsym $mod1+1 exec  "echo 0 | pkexec tee /sys/module/hid_apple/parameters/fnmode"
+#bindsym $mod1+2 exec  "echo 1 | pkexec tee /sys/module/hid_apple/parameters/fnmode"
+#bindsym $mod1+3 exec  "echo 2 | pkexec tee /sys/module/hid_apple/parameters/fnmode"
 
 # change focus
 bindsym $mod+j focus down
@@ -117,7 +122,7 @@ bindsym $mod+Shift+Right move right
 workspace_auto_back_and_forth yes
 
 # split orientation
-bindsym $mod+shift+b split h;exec   notify-send 'tile horizontally'
+bindsym $mod+b split h;exec   notify-send 'tile horizontally'
 bindsym $mod+v split v;exec   notify-send 'tile vertically'
 
 # toggle fullscreen mode for the focused container
@@ -138,17 +143,14 @@ bindsym $mod+shift+p move scratchpad
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+p scratchpad show
-#bindsym $mod+p exec swayscratchpad --toggle
-#bindsym $mod1+shift+o [app_id="obs"] scratchpad show; move position center;
 bindsym $mod+shift+t [app_id="spad"] scratchpad show; move position center;
-bindsym $mod1+shift+s [title="Skype"] scratchpad show; move position center;
 bindsym $mod+shift+f [app_id="thunar"] scratchpad show; move position center;
 bindsym $mod+shift+m [app_id="gnome-system-monitor"] scratchpad show; move position center;
 bindsym $mod+shift+d [app_id="gnome-disks"] scratchpad show; move position center;
 bindsym $mod1+shift+v [app_id="lvim"] scratchpad show; move position center;
 bindsym $mod+shift+n [app_id="nvim"] scratchpad show; move position center;
 bindsym $mod1+shift+e [app_id="emacs"] scratchpad show; move position center;
-
+bindsym $mod+c move position center
 # workspaces
 set $ws1 1 
 set $ws2 2 
@@ -161,14 +163,14 @@ set $ws8 8
 set $ws9 9 
 
 workspace 1 output DP-2
-workspace 2 output DP-3
+workspace 2 output DP-2
 workspace 3 output DP-2
-workspace 4 output DP-3
+workspace 4 output DP-2
 workspace 9 output DP-2
-workspace 5 output DP-2
+workspace 5 output DP-3 
 workspace 6 output DP-3
-workspace 7 output DP-2
-workspace 8 output DP-3
+workspace 7 output DP-3
+workspace 8 output DP-3 
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1 
@@ -205,25 +207,24 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 #bindsym $mod+Shift+p move workspace to output right
 
 # Inhibit Idle if a window is fullscreen
-for_window [class="^.*"] inhibit_idle fullscreen
 for_window [app_id="^.*"] inhibit_idle fullscreen
 
+assign [app_id="dev.geopjr.Tuba"] 5
+assign [app_id="io.github.NhekoReborn.Nheko"] 5
+assign [app_id="so.libdb.gtkcord4"] 5
+
+assign [app_id="firefox"] 1
 
 # Open specific applications in floating mode
 for_window [title="Color Picker"] floating enable
+for_window [app_id="net.nokyan.Resources"] floating enable
 for_window [title="Picture-in-Picture"] floating enable; move position center;
 for_window [title="Disks"] floating enable; move position center;
 for_window [title="About Mozilla Firefox"] floating enable
 for_window [title="GNU Image Manipulation Program"] floating enable
-for_window [class="GParted"] floating enable border normal
-for_window [instance="gimp-2.10"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [instance="lxappearance"] floating enable sticky enable border normal
-for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [app_id="pavucontrol"] floating enable
-for_window [class="feh"] floating enable border pixel 2
-for_window [class="Gimp-2.10"] floating enable border normal
 for_window [app_id="mpv"] floating enable, resize set width 1200 height 800
+for_window [app_id="firefox"] floating enable; move position center; enable border normal
 for_window [app_id="spad"] {
   move to scratchpad
   floating enable
@@ -242,18 +243,13 @@ for_window [app_id="gnome-system-monitor"] {
   resize set width 1450 height 900
   scratchpad show
 }
+
 for_window [app_id="gnome-disks"] {
   move to scratchpad
   floating enable
   resize set width 1400 height 800
   scratchpad show
 }
-#for_window [app_id="obs"] {
-#  move to scratchpad
-#  floating enable
-#  resize set width 1200 height 950
-#  scratchpad show
-#}
 for_window [app_id="lvim"] {
   move to scratchpad
   floating enable
@@ -261,24 +257,6 @@ for_window [app_id="lvim"] {
   scratchpad show
 }
 for_window [app_id="nvim"] {
-  move to scratchpad
-  floating enable
-  resize set width 1400 height 1350
-  scratchpad show
-}
-for_window [app_id="emacs"] {
-  move to scratchpad
-  floating enable
-  resize set width 1400 height 1350
-  scratchpad show
-}
-for_window [title="Skype"] {
-  move to scratchpad
-  floating enable
-  resize set width 1200 height 1150
-  scratchpad show
-}
-for_window [app_id="Telegram"] {
   move to scratchpad
   floating enable
   resize set width 1400 height 1350
@@ -296,9 +274,9 @@ set $mode_system (l) lock, (e) logout, (s) suspend, (r) reboot, (S) shutdown
 mode "$mode_system" {
   bindsym l exec   $lock, mode "default"
     bindsym e exit
-    bindsym s exec   systemctl suspend, mode "default"
-    bindsym r exec   systemctl reboot, mode "default"
-    bindsym Shift+s exec   systemctl poweroff -i, mode "default"
+    bindsym s exec   loginctl suspend, mode "default"
+    bindsym r exec   loginctl reboot, mode "default"
+    bindsym Shift+s exec   loginctl poweroff -i, mode "default"
 
 # return to default mode
     bindsym Return mode "default"
@@ -328,10 +306,10 @@ mode "resize" {
 }
 
 #Adwaita Colorscheme
-client.focused          #3584E4 #2c2c2c #a9b8e8 #3584E4   #3584E4
+client.focused          #285777 #2c2c2c #a9b8e8 #285777   #285777
 client.focused_inactive #2c2c2c #2c2c2c #ffffff #2c2c2c   #2c2c2c
 client.unfocused        #2c2c2c #2c2c2c #888888 #292d2e   #2c2c2c
-client.urgent           #2f343a #3584E4 #ffffff #3584E4   #3584E4
+client.urgent           #2f343a #285777 #ffffff #285777   #285777
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #2c2c2c
 
@@ -340,15 +318,15 @@ bindsym $mod1+p exec colorpicker
 bindsym $mod1+s exec skp
 bindsym $mod+g exec gthumb
 bindsym $mod1+d exec gnome-disks
-bindsym $mod1+b exec ffox
 bindsym $mod+f exec thunar
-bindsym $mod+m exec gnome-system-monitor
-bindsym $mod1+e exec emacsclient -c -a 'emacs'
+bindsym $mod+m exec flatpak run net.nokyan.Resources
 bindsym $mod1+h exec foot -a spad -e htop
 bindsym $mod+n exec foot -a nvim -e nvim
 bindsym $mod1+v exec foot -a lvim -e nvim
-bindsym $mod1+t exec foot -a spad
+bindsym $mod1+t exec alacritty --class spad
 bindsym $mod+t exec foot -a spad
+
+# screenshot shortcuts
 bindsym print exec scshot --now
 bindsym $mod+print exec scshot --in5
 bindsym Shift+print exec scshot --in10
@@ -356,10 +334,10 @@ bindsym $mod2+print exec scshot --win
 bindsym $mod+$mod2+print exec scshot --area
 
 # auto-start applications
-exec wl-paste -t text --watch clipman store --max-items 100
 exec $HOME/.config/sway/modules/i3-master-layout.py
 exec_always sh $HOME/.config/sway/modules/startup
-exec pactl set-sink-volume @DEFAULT_SINK@ 70%
+exec pactl set-sink-volume @DEFAULT_SINK@ 50%
+exec swaync -s /home/roidm/.config/swaync/preset-0.css
 
 # volume button
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -374,11 +352,11 @@ bindsym XF86AudioPrev exec playerctl previous
 # gtk themes
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
-  gsettings set $gnome-schema text-scaling-factor 1.1
+#  gsettings set $gnome-schema text-scaling-factor 1.1
   gsettings set $gnome-schema gtk-theme 'adw-gtk3-dark'
   gsettings set $gnome-schema icon-theme 'Papirus-Dark'
   gsettings set $gnome-schema cursor-theme 'Adwaita'
-  gsettings set $gnome-schema font-name 'Ubuntu 11'
+#  gsettings set $gnome-schema font-name 'Ubuntu 11'
   gsettings set $gnome-schema cursor-size 24
 }
 

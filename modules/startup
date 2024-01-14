@@ -10,5 +10,5 @@ while pgrep -x waybar >/dev/null; do sleep 1; done
 ~/.azotebg &
 mako &
 polkit-gnome &
-waybar -c $HOME/.config/sway/waybar/config.json -s $HOME/.config/sway/waybar/style.css &
+waybar -c $HOME/.config/sway/waybar/config -s $HOME/.config/sway/waybar/style.css &
 pactl set-sink-volume @DEFAULT_SINK@ 70%

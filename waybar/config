@@ -1,14 +1,19 @@
 {
   "layer": "top",
+  "output": ["DP-2"],
+  //"mode": "dock",
   "gtk-layer-shell": "true",
-  "margin-top": 4,
+  //"exclusive": "false",
+  //"passthrough": "true",
+  "spacing": 2,
+  "margin-top": 2,
   "margin-left": 16,
   "margin-right": 16,
-  "margin-bottom": -6,
-  "height": 36,
-  "modules-left": ["custom/gentoo","custom/dot","sway/workspaces","custom/dot2","cpu","custom/gputmp","custom/dot4","disk","custom/memory","custom/dot4","sway/window"],
-  "modules-center": ["clock"],
-  "modules-right": ["sway/mode","custom/dot4","custom/dot4","custom/network","custom/uptime","temperature","custom/weather","custom/kernel","pulseaudio","tray","custom/dot3","custom/power"],
+  "margin-bottom": -7,
+   "height": 32,
+  "modules-left": ["custom/gentoo","sway/workspaces","cpu","custom/gputmp","disk","sway/window"],
+  "modules-center": ["custom/weather","clock","memory"],
+  "modules-right": ["sway/mode","custom/network","custom/uptime","temperature","custom/kernel","pulseaudio","tray","custom/power"],
   "keyboard-state": {
       "numlock": true,
       "capslock": true,
@@ -35,6 +40,7 @@
   "wlr/workspaces": {
     "sort-by-name": true,
     "on-click": "activate",
+    //"format": "{icon}",
     "format-icons": {
       "1": "",
       "2": "",
@@ -51,6 +57,11 @@
       "default": ""
     },  
     "on-click": "activate"
+      // "sort-by-coordinates": true
+  },
+  "custom/workspaces": {
+    "format": "{}",
+    "exec": "$HOME/.config/hypr/bin/hyprworkspace",
   },
   "sway/window": {
     "format": "{}",
@@ -61,8 +72,12 @@
     },
     "tooltip": false
   },
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 60
+  },
   "temperature": {
-    "hwmon-path": "/sys/module/k10temp/drivers/pci:k10temp/0000:00:18.3/hwmon/hwmon4/temp3_input",
+    "hwmon-path": "/sys/module/k10temp/drivers/pci:k10temp/0000:00:18.3/hwmon/hwmon3/temp1_input",
     "format": " {temperatureC}°C",
     "interval": 2,
     "on-click" : "",
@@ -81,16 +96,18 @@
     }
   },
   "tray": {
-    "spacing": 10
-    
+    "spacing": 10,
+    "icon-size": 14,
   },
   "clock": {
-    "format": " {:%a %b %d %H:%M} ",
+    // "timezone": "America/New_York",
+    "format": " {:%b %d %H:%M} ",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     "format-alt": " {:%A, %B %d, %Y} ",
     "on-click" : "",
   },
   "backlight": {
+    // "device": "acpi_video1",
     "format": " {percent}%",
   },
   "cpu": {
@@ -100,7 +117,7 @@
     "on-click" : "",
   },
   "memory": {
-    "format": "{used:0.1f}  ",
+    "format": "{}%  ",
     "interval": 5,
     "on-click" : "",
   },
@@ -117,6 +134,7 @@
     "on-click" : "",
   },
   "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
     "format-wifi": "",
     "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "format-linked": "{ifname} (No IP) ",
@@ -145,6 +163,13 @@
     "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
     "on-click-middle": "pavucontrol"
   },
+  "custom/updater":{
+    "format": "<span font='14' rise='1000'></span> {}",
+    "exec": "checkupdates | wc -l",
+    "exec-if": "[[ $(checkupdates | wc -l) ]]",
+    "interval": 300,
+    "on-click": "kitty --class update -T update -e yay -Syu && notify-send -i '/usr/share/icons/hicolor/256x256/apps/kitty.png' 'Kitty Terminal' 'The system has been updated' "
+  },
   "custom/power": {
     "format": "",
     "on-click": "wofi-power",
@@ -153,9 +178,32 @@
   },
   "custom/gentoo": {
     "format": "",
+    //"format": "異",
     "on-click": "wofi --show drun",
     "on-click-right": "killall -9 wofi",
     "tooltip": false
+  },
+  "custom/fedora": {
+     "format": "󰣛",
+     //"format": "異",
+     "on-click": "wofi --show drun",
+     "on-click-right": "killall -9 wofi",
+     "tooltip": false
+  },
+  "custom/arch": {
+    "format": "󰣇",
+    //"format": "異",
+    "on-click": "wofi --show drun",
+    "on-click-right": "killall -9 wofi",
+    "tooltip": false
+  },
+  "custom/dunst": {
+    "exec": "~/.config/waybar/scripts/dunst.sh",
+    "on-click": "dunstctl set-paused toggle",
+    "restart-interval": 1,
+    "format": "{}",
+    "return-type": "json",
+    "on-click" : "",
   },
   "custom/dot4": {
     "format": " ",
@@ -191,9 +239,9 @@
     "on-click" : "",
   },
   "custom/kernel": {
-    "format": " {}",
+    "format": " {}-gentoo",
     "interval": 7200,
-    "exec": "uname -r",
+    "exec": "uname -r | cut -d '-' -f1",
     "on-click" : "",
   },
   "custom/weather": {
@@ -220,9 +268,17 @@
     },
     "tooltip": false,
     "interval": 3600,
-    "exec": "python3 ~/.config/sway/waybar/modules/openWeatherMap.py",
+    "exec": "python3 ~/.config/waybar/modules/openWeatherMap.py",
     "return-type": "json",
     "escape": true,
     "on-click" : "",
+  },
+  "custom/eix": {
+    "format": "{}  ",
+    "interval": 3600, // every hour
+    "exec": "(eix --installed --upgrade --format '<installedversions:NAMEVERSION>') | wc -l",
+    "exec-if": "exit 0", // always run; consider advanced run conditions
+    "signal": 8,
+    "tooltip": false,
   }
 }

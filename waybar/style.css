@@ -8,103 +8,88 @@
 
 window#waybar {
   background-color: transparent;
-  
+
 }
 
-window > box {
+tooltip {
+  background: #181818; /* tooltip background */
+  /*border: 2px solid #c0caf5; */
+  border-radius: 6px; /* tooltip rounded corners */
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.4);
+}
+
+/*window > box {
   background: #181818;
   border-radius: 12px;
-  min-width: 35px;
-  margin: 3px;
+  min-width: 28px;
+  margin: 2px;
   background-clip: border-box;
   transition-property: background-color;
   transition-duration: .5s;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 1px 2px 1px rgba(0, 0, 0, 0.18), 0 2px 4px 2px rgba(0, 0, 0, 0.18);
-}
+}*/
 
-#disk,
 #custom-memory,
+#memory,
 #cpu,
-#custom-gputmp
+#custom-gputmp,
 #custom-uptime,
 #temperature,
 #custom-weather,
-#cpu, #custom-gputmp {
-  background-color: #1f1f1f;
-  padding: 0 7px;
-  margin: 5px 0px;
-}
-#disk, #custom-memory {
-  background-color: #1f1f1f;
-  padding: 0 7px;
-  margin: 5px 0px;
-}
-
-#disk {
-  color: #5dbbc1;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
-#custom-memory {
-  color: #9841bb;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-#cpu {
-  color: #f5c211;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
-#custom-gputmp {
-  color: #8FBF7F;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-#custom-uptime, #temperature, #custom-weather {
-  background-color: #1f1f1f;
-  padding: 0px 7px;
-  margin: 5px 0px;
-}
-
-#custom-uptime {
-  color: #2ec27e;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
-#temperature {
-  color: #9841bb;
-  
+#workspaces,
+#custom-media,
+#custom-fans,
+#clock,
+#network,
+#custom-power,
+#mode,
+#pulseaudio,
+#custom-kernel,
+#custom-gentoo,
+#custom-debian,
+#custom-fedora,
+#custom-arch,
+#custom-network,
+#window,
+#custom-window,
+#custom-eix,
+#custom-update,
+#disk,
+#tray {
+  background-color: #181818;
+  padding: 0 6px;
+  margin: 4px 4px 4px 4px;
+  border-radius: 6px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.4);
+  background-clip: padding-box;
 }
 
 #pulseaudio {
   color: #f5c211;
-  background-color: #1f1f1f;
-  padding: 0px 8px;
-  margin: 5px 5px 5px 4px;
-  border-radius: 8px;
 }
 
 #pulseaudio.muted {
   background-color: #e06c75;
 }
 
-#custom-kernel {
-  color: #51a1ff;
-  background-color: #1f1f1f;
-  padding: 0px 7px;
-  margin: 5px 5px 5px 5px;
-  border-radius: 8px;
+#custom-gputmp {
+  color:  #51a1ff;
 }
 
-#custom-weather {
-  color: #5dbbc1;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+#custom-memory {
+  color: #9841bb;
+}
+
+#memory {
+  color: #8FBF7F;
+}
+
+#cpu {
+  color: #f5c211;
+}
+
+#custom-uptime {
+  color: #5dbbc1; 
 }
 
 #temperature {
@@ -114,6 +99,103 @@ window > box {
 #temperature.critical {
   background-color: #e06c75;
   color: #1f1f1f;
+}
+
+#custom-kernel {
+  color: #51a1ff;
+}
+
+#custom-weather {
+  color: #5dbbc1;
+}
+
+#disk {
+  color: #5dbbc1;
+}
+
+#custom-network {
+  color: #e06c75;
+}
+
+#workspaces{
+}
+
+#workspaces button {
+  padding: 1 0px;
+  color: #51a1ff;
+  transition-property: background-color; /* smooth transition for workspace module */
+  transition-duration: .1s;
+}
+
+#workspaces button:hover {
+  background-color: rgba(36, 36, 36, 0.9);
+}
+
+#workspaces button.active {
+  color: #9841bb;
+}
+
+#workspaces button.focused {
+  color: #9841bb;
+}
+
+#workspaces button.urgent {
+  color: #e06c75;
+}
+
+#clock {
+  color: #51a1ff;
+}
+
+#mode {
+  color: #0fa4bf;
+}
+
+#window {
+  color: #DDDAEC;
+}
+
+#custom-power {
+  color: #f65866;
+}
+
+#custom-arch {
+  font-size: 15px;
+  font-family: CaskaydiaMono NF;
+  color: #1793D1;
+}
+
+#custom-fedora {
+  font-size: 18px;
+  color: #50a4db;
+}
+
+#custom-gentoo {
+  font-size: 13px;
+  color: #ADA8D0;
+}
+
+#custom-debian {
+  font-size: 15px;
+  font-family: CaskaydiaMono NF;
+  color: #D70751;
+}
+
+#custom-eix {
+  color: #2ec27e;
+}
+
+#custom-update {
+  color: #2ec27e;
+}
+
+#network {
+  color: #9841bb;
+}
+
+#network.disconnected {
+    color: #1f1f1f;
+    background-color: #e06c75;
 }
 
 @keyframes gradient {
@@ -128,133 +210,11 @@ window > box {
 	}
 }
 
-#workspaces{
-  background-color: #1f1f1f;
-  border-radius: 8px;
-}
-
-#workspaces,
-#custom-media,
-#custom-fans,
-#clock,
-#network,
-#custom-power,
-#mpd,
-#custom-gentoo,
-#custom-network,
-#window,
-#memory,
-#tray {
-  background-color: #1f1f1f;
-  padding: 0 7px;
-  margin: 5px 5px 5px 5px;
-  border-radius: 8px;
-  background-clip: padding-box;
-}
-
-#workspaces button {
-  padding: 0 6px;
-  min-width: 10px;
-  color: #51a1ff;
-}
-
-#custom-network {
-  color: #e06c75;
-  background-color: #1f1f1f;
-
-}
-
-#custom-dunst {
-  color: #9841bb;
-}
-
-#custom-dot{
-  color: #38384d;
-  font-size: 15px;
-  background-color: transparent;
-}
-
-#custom-dot2{
-  color: #38384d;
-  font-size: 15px;
-  background-color: transparent;
-}
-
-#custom-dot3{
-  color: #38384d;
-  font-size: 15px;
-  background-color: transparent;
-}
-
-#workspaces button:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-#workspaces button.active {
-  color: #9841bb;
-  
-}
-
-#workspaces button.focused {
-  color: #9841bb;
-}
-
-#workspaces button.urgent {
-  color: #e06c75;
-}
-
-#memory {
-  color: #9841bb;
-}
-
-#custom-media {
-  background-color: #9841bb;
-  color: #1f1f1f;
-}
-
-#custom-fans {
-  color: #e06c75;
-}
-
-
-#clock {
-  color: #51a1ff;
-}
-
-#mode {
-  color: #0fa4bf;
-}
-
-#window {
-  color: #c0bfbc;
-  background-color: transparent;
-}
-
-#custom-power {
-  color: #f65866;
-  background-color: #1f1f1f;
-}
-
-#custom-gentoo {
-  font-size: 15px;
-  color: #9841bb;
-  background-color: transparent;
-}
-
 @keyframes blink {
     to {
-        background-color: #1f1f1f;
         color: #e06c75;
+        background-color: #1f1f1f;
     }
-}
-
-#network {
-    color: #9841bb
-}
-
-#network.disconnected {
-    background-color: #e06c75;
-    color: #1f1f1f;
 }
 
 
